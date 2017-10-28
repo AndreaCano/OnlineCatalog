@@ -3,45 +3,27 @@
 
     include 'dbconnection.php';
     $conn = getDatabaseConnection();
-<<<<<<< HEAD
     
     function getItemInfo($gameId) {
         global $conn;
         $sql = "SELECT * 
                 FROM vg_game
+                INNER JOIN vg_console ON vg_game.console_id = vg_console.console_id 
+                INNER JOIN vg_developer ON vg_game.developer_id = vg_developer.developer_id
                 WHERE game_id = ".$gameId;
-=======
-
-    function getDepartmentInfo(){
-        global $conn;
-        $sql = "SELECT deptName, departmentId
-                FROM `tc_department` 
-                ORDER BY deptName";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $records;
-    }
-    
-    function getItemInfo($userId) {
-        global $conn;
-        $sql = "SELECT * 
-                FROM tc_user
-                WHERE userId = ".$userId;
->>>>>>> 61431d04585da319385d2afca88904a4f0c03511
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
-
+        
         return $record;
     }
     
     if (isset($_GET['itemId'])) {
-        echo $_GET['itemId'];
+        
         $itemInfo = getItemInfo($_GET['itemId']);
+        print_r($itemInfo);
         array_push($_SESSION['ids'],$_GET['itemId']);
-        header("Location: index.php");
+        //header("Location: index.php");
     }
 ?>
 

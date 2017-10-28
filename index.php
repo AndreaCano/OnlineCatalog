@@ -8,13 +8,8 @@
     function getItems() {
         global $conn;
         $sql = "SELECT * 
-<<<<<<< HEAD
                 FROM vg_game
                 ORDER BY game_name";
-=======
-                FROM tc_user
-                ORDER BY lastName";
->>>>>>> 61431d04585da319385d2afca88904a4f0c03511
         $statement = $conn->prepare($sql);
         $statement->execute();
         $users = $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -25,17 +20,10 @@
     
     function showItems($items){
         foreach($items as $item) {
-<<<<<<< HEAD
             echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Genre: ".$item['genre'] . "<br>Release: " . $item['game_release']."</a><br>";
             
             echo "<form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
-=======
-            echo "<a href='viewitem.php?itemId=".$item['userId']."'>".$item['firstName'] . "  " . $item['lastName']."</a>";
-            
-            echo "<form action='addtocart.php' style='display:inline'>";
-            echo "<input type='hidden' name='itemId' value='".$item['userId']."'>";
->>>>>>> 61431d04585da319385d2afca88904a4f0c03511
             echo "<input type='submit' value='Add to Cart'>";
             echo "</form>";
             echo "<br />";
