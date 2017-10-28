@@ -12,9 +12,9 @@
                 ORDER BY game_name";
         $statement = $conn->prepare($sql);
         $statement->execute();
-        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $games = $statement->fetchAll(PDO::FETCH_ASSOC);
     
-        return $users;
+        return $games;
     }
     
     
@@ -45,12 +45,12 @@
     </head>
     <body>
         <div class="jumbotron">
-            <h1>Item Catalog</h1>
+            <h1>Retro Video Game Catalog</h1>
             <h2></h2>
         </div>
         
         <hr>
-        <h3>Users</h3>
+        <h3>Game Stock</h3>
         <?php $items = getItems(); ?>
         <form action="viewcart.php" style='display:inline'>
             <input type="submit" value="Display Shopping Cart">

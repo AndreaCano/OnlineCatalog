@@ -20,10 +20,8 @@
     
     if (isset($_GET['itemId'])) {
         
-        $itemInfo = getItemInfo($_GET['itemId']);
-        print_r($itemInfo);
         array_push($_SESSION['ids'],$_GET['itemId']);
-        //header("Location: index.php");
+        header("Location: index.php");
     }
 ?>
 
