@@ -23,9 +23,11 @@
     }
     
     function getCart(){
-        foreach($_SESSION['ids'] as $record){
-            $item = getItem($record);
-            showItem($item);
+        if(isset($_SESSION['ids'])){
+            foreach($_SESSION['ids'] as $record){
+                $item = getItem($record);
+                showItem($item);
+            }
         }
     }
 ?>
