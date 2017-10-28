@@ -30,7 +30,7 @@
         }
     }
     
-    if(empty($_SESSION)){
+    if(!isset($_SESSION['ids']) || empty($_SESSION['ids'])){
         $_SESSION['ids']=array();
     }
 ?>

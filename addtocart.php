@@ -19,7 +19,6 @@
     }
     
     if (isset($_GET['itemId'])) {
-        
         array_push($_SESSION['ids'],$_GET['itemId']);
         header("Location: index.php");
     }
