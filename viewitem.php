@@ -1,13 +1,8 @@
 <?php
     session_start();
     
-    if(!isset($_SESSION['username'])){
-        header("Location: index.php");
-        exit();
-    }
 
-    include '../../dbconnection.php';
-    
+    include 'dbconnection.php';
     $conn = getDatabaseConnection();
 
     function getDepartmentInfo(){
@@ -30,22 +25,11 @@
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        print_r($record);
         return $record;
     }
     
-    if(isset($_GET['updateUserForm'])){
-        $sql = "UPDATE tc_user SET firstName = :fName, lastName = :lName WHERE userId = :userId";
-        $namedParameters['fName'] = $_GET['firstName'];
-        $namedParameters['lName'] = $_GET['lastName'];
-        $namedParameters['userId'] = $_GET['userId'];
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->execute($namedParameters);
-    }
-    
-    if (isset($_GET['userId'])) {
-        $userInfo = getUserInfo($_GET['userId']);
+    if (isset($_GET['itemId'])) {
+        $userInfo = getUserInfo($_GET['itemId']);
     }
 ?>
 

@@ -1,34 +1,38 @@
 <?php
-session_start();
-
-include '../../dbconnection.php';
-$conn = getDatabaseConnection();
-
-//Display the items
-function getItems() {
-    global $conn;
-    $sql = "SELECT * 
-            FROM tc_user
-            ORDER BY lastName";
-    $statement = $conn->prepare($sql);
-    $statement->execute();
-    $users = $statement->fetchAll(PDO::FETCH_ASSOC);
-
-    return $users;
-}
-
-
-function showItems($items){
-    foreach($items as $item) {
-        echo "<a href='viewitem.php?userId=".$item['userId']."'>".$item['firstName'] . "  " . $item['lastName']."</a>";
-        
-        echo "<form action='addtocart.php' style='display:inline'>";
-        echo "<input type='hidden' name='userId' value='".$item['userId']."'>";
-        echo "<input type='submit' value='Add to Cart'>";
-        echo "</form>";
-        echo "<br />";
+    session_start();
+    
+    include 'dbconnection.php';
+    $conn = getDatabaseConnection();
+    
+    //Display the items
+    function getItems() {
+        global $conn;
+        $sql = "SELECT * 
+                FROM tc_user
+                ORDER BY lastName";
+        $statement = $conn->prepare($sql);
+        $statement->execute();
+        $users = $statement->fetchAll(PDO::FETCH_ASSOC);
+    
+        return $users;
     }
-}
+    
+    
+    function showItems($items){
+        foreach($items as $item) {
+            echo "<a href='viewitem.php?itemId=".$item['userId']."'>".$item['firstName'] . "  " . $item['lastName']."</a>";
+            
+            echo "<form action='addtocart.php' style='display:inline'>";
+            echo "<input type='hidden' name='itemId' value='".$item['userId']."'>";
+            echo "<input type='submit' value='Add to Cart'>";
+            echo "</form>";
+            echo "<br />";
+        }
+    }
+    
+    if(empty($_SESSION)){
+        $_SESSION['ids']=array();
+    }
 ?>
 
 <!DOCTYPE html>
