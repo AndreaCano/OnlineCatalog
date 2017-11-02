@@ -13,7 +13,18 @@
         $statement = $conn->prepare($sql);
         $statement->execute();
         $games = $statement->fetchAll(PDO::FETCH_ASSOC);
-    
+        
+        
+         if (!empty($_GET['gameName'])) {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
+            $sql .= " AND game_name LIKE :game_name"; //using named parameters
+            $namedParameters[':game_name'] = "%" . $_GET['game_name'] . "%";
+
+         }
+        $sql .= "ORDER BY game_name";
         return $games;
     }
     
@@ -30,6 +41,42 @@
         }
     }
     
+    
+    function getConsole() {
+    global $conn;
+    $sql = "SELECT DISTINCT(console_name)
+            FROM `vg_console` 
+            ORDER BY console_name";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($records as $record) {
+        
+        echo "<option> "  . $record['console_name'] . "</option>";
+        
+    }
+}
+
+
+function getGenre() {
+    global $conn;
+    $sql = "SELECT DISTINCT(genre)
+            FROM `vg_game` 
+            ORDER BY genre";
+    
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    foreach ($records as $record) {
+        
+        echo "<option> "  . $record['genre'] . "</option>";
+        
+    }
+}
+
     if(!isset($_SESSION['ids']) || empty($_SESSION['ids'])){
         $_SESSION['ids']=array();
     }
@@ -49,15 +96,32 @@
             <h2></h2>
         </div>
         
+        
+       
         <hr>
         <h3>Game Stock</h3>
         <?php $items = getItems(); ?>
         <form action="viewcart.php" style='display:inline'>
             <input type="submit" value="Display Shopping Cart">
+            
+            
+                Game Name: <input type="text" name="game_name" placeholder="Game Name"/>
+             
+                Genre:<select name="genre">
+                <option value="">Select One</option>
+                    <?=getGenre()?>
+                </select>
+                
+                Console:<select name="console">
+                <option value="">Select One</option>
+                    <?=getConsole()?>
+                </select>
         </form>
         <br>
         
         <?php showItems($items); ?>
         </div>
+        
+       
     </body>
 </html>
