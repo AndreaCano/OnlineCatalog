@@ -101,7 +101,7 @@ function getGenre() {
         <hr>
         <h3>Game Stock</h3>
         <?php $items = getItems(); ?>
-        <form action="viewcart.php" style='display:inline'>
+        <form action="viewcart.php" style='display:inline' name="infoForm">
             <input type="submit" value="Display Shopping Cart">
             
             
@@ -116,6 +116,7 @@ function getGenre() {
                 <option value="">Select One</option>
                     <?=getConsole()?>
                 </select>
+                <input type="submit" name="infoForm" value="Search"/>
         </form>
         <br>
         
