@@ -8,40 +8,59 @@
     function getItems() {
         global $conn;
         $sql = "SELECT * 
-                FROM vg_game
-                ORDER BY game_name";
-        $statement = $conn->prepare($sql);
+                FROM vg_game";
+                //ORDER BY game_name";
+                
+                  $statement = $conn->prepare($sql);
         $statement->execute();
         $games = $statement->fetchAll(PDO::FETCH_ASSOC);
+      
         
-        
-         if (!empty($_GET['gameName'])) {
+         if (isset($_GET['search'])){
+             
+              $namedParameters = array();
+           /*  if (!empty($_GET['ge_name'])) {
             
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
   
-            $sql .= " AND game_name LIKE :game_name"; //using named parameters
+            $sql .= " WHERE game_name LIKE  :game_name  "; //using named parameters
             $namedParameters[':game_name'] = "%" . $_GET['game_name'] . "%";
 
+             }*/
+             
+              if (!empty($_GET['genre'])) {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
+            $sql .= " WHERE genre = :genre"; //using named parameters
+            $namedParameters[':genre'] =   $_GET['genre'] ;
+
+         }   
          }
         $sql .= "ORDER BY game_name";
+        
+        
         return $games;
     }
     
-    
+   
     function showItems($items){
         foreach($items as $item) {
             echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Genre: ".$item['genre'] . "<br>Release: " . $item['game_release']."</a><br>";
             
             echo "<form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
-            echo "<input type='submit' value='Add to Cart'>";
+            echo '<button class="add" value="'.$item['game_name'].'">Add to cart</button>';
             echo "</form>";
             echo "<br />";
         }
     }
     
-    
+     if(isset($_GET['add']) && $_GET['add'] == 'Add to Cart') {
+        echo "<h4>Game has been added to cart</h4>";
+    }
     function getConsole() {
     global $conn;
     $sql = "SELECT DISTINCT(console_name)
@@ -101,7 +120,7 @@ function getGenre() {
         <hr>
         <h3>Game Stock</h3>
         <?php $items = getItems(); ?>
-        <form action="viewcart.php" style='display:inline'>
+        <form action="viewcart.php" style='display:inline' method="get">
             <input type="submit" value="Display Shopping Cart">
             
             
@@ -123,6 +142,17 @@ function getGenre() {
         <?php showItems($items); ?>
         </div>
         
-       
+        <script>
+        
+        function add(game) {
+
+                 return "";
+        }
+                $(document).ready(function(){
+                    $(".add").click(function(){
+                        alert("Added " + $(this).attr('value') + " item to your cart.");
+                    });
+                });
+        </script>
     </body>
 </html>
