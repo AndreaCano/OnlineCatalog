@@ -1,75 +1,39 @@
 <?php
     session_start();
-    
-    if(!isset($_SESSION['username'])){
-        header("Location: index.php");
-        exit();
-    }
 
-    include '../../dbconnection.php';
-    
+    include 'dbconnection.php';
     $conn = getDatabaseConnection();
-
-    function getDepartmentInfo(){
-        global $conn;
-        $sql = "SELECT deptName, departmentId
-                FROM `tc_department` 
-                ORDER BY deptName";
-        
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $records = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $records;
-    }
     
-    function getUserInfo($userId) {
+    function getItemInfo($gameId) {
         global $conn;
         $sql = "SELECT * 
-                FROM tc_user
-                WHERE userId = $userId";
+                FROM vg_game
+                INNER JOIN vg_console ON vg_game.console_id = vg_console.console_id 
+                INNER JOIN vg_developer ON vg_game.developer_id = vg_developer.developer_id
+                WHERE game_id = ".$gameId;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $record = $stmt->fetch(PDO::FETCH_ASSOC);
-        print_r($record);
+        
         return $record;
     }
     
-    if(isset($_GET['updateUserForm'])){
-        $sql = "UPDATE tc_user SET firstName = :fName, lastName = :lName WHERE userId = :userId";
-        $namedParameters['fName'] = $_GET['firstName'];
-        $namedParameters['lName'] = $_GET['lastName'];
-        $namedParameters['userId'] = $_GET['userId'];
+    if (isset($_GET['itemId'])) {
+         $key=array_search($_GET['itemId'],$_SESSION['ids']);
+            if($key!==false){
+                 unset($_SESSION['ids'][$key]);
+            }
+            $_SESSION["ids"] = array_values($_SESSION["ids"]);
         
-        $stmt = $conn->prepare($sql);
-        $stmt->execute($namedParameters);
-    }
-    
-    if (isset($_GET['userId'])) {
-        $userInfo = getUserInfo($_GET['userId']);
+        header("Location: viewcart.php");
     }
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Add User </title>
+        
     </head>
     <body>
-        
-       First Name: <?=$userInfo['firstName']?> <br>
-       Last Name: <?=$userInfo['lastName']?><br>
-       Email: <?=$userInfo['email']?><br>
-       University ID: <?=$userInfo['universityId']?><br>
-       Phone: <?=$userInfo['phone']?><br>
-       Gender: <?= $userInfo['gender'] ?><br>
-       Role: <?=$userInfo['role']?><br>
-        Department: <?php 
-                        $departments = getDepartmentInfo();
-                        foreach ($departments as $record) {
-                            if($userInfo['deptId']==$record['departmentId']){ 
-                                echo $record['deptName'];
-                            }
-                        }
-                    ?><br>
     </body>
 </html>

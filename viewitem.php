@@ -26,10 +26,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Add User </title>
+        <title>Item Details </title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
-        
+       <h1><?=$userInfo['game_name']?> Details </h1>
+       
        Game Name: <?=$userInfo['game_name']?> <br>
        Console: <?=$userInfo['console_name']?><br>
        Developer: <?=$userInfo['developer_name']?><br>
