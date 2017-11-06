@@ -8,15 +8,10 @@
     function getItems() {
         global $conn;
         $sql = "SELECT * 
-<<<<<<< HEAD
-                FROM vg_game WHERE 1";
-=======
                 FROM vg_game
                 NATURAL JOIN vg_console
                 WHERE 1";
->>>>>>> origin/master
-                //ORDER BY game_name";
-        
+
     if (isset($_GET['search'])){
         
         $namedParameters = array();
@@ -24,50 +19,33 @@
         
         if (!empty($_GET['gameName'])) {
             //echo $_GET['deviceName'];
-<<<<<<< HEAD
-=======
-            //The following query allows SQL injection due to the single quotes
+    //The following query allows SQL injection due to the single quotes
             $sql .= " AND game_name LIKE '%" . $_GET['gameName'] . "%'";
   
            // $sql .= " AND deviceName LIKE :deviceName"; //using named parameters
             //$namedParameters[':deviceName'] = "%" . $_GET['deviceName'] . "%";
 
          }
-         if (!empty($_GET['genre']) && $_GET['genre']!= "Select One") {
-            
->>>>>>> origin/master
-            //The following query allows SQL injection due to the single quotes
-            $sql .= " AND game_name LIKE '%" . $_GET['gameName'] . "%'";
-  
-<<<<<<< HEAD
+
            // $sql .= " AND deviceName LIKE :deviceName"; //using named parameters
             //$namedParameters[':deviceName'] = "%" . $_GET['deviceName'] . "%";
          }
-         if (!empty($_GET['genre']) && $_GET['genre']!= "Select One") {
-=======
-            $sql .= " AND genre = :gType"; //using named parameters
-            $namedParameters[':gType'] =   $_GET['genre'];
-
-         }  
-         if (!empty($_GET['console']) && $_GET['console']!= "Select One") {
->>>>>>> origin/master
+        if (!empty($_GET['genre']) && $_GET['genre']!= "Select One") {
             
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
   
-<<<<<<< HEAD
             $sql .= " AND genre = :gType"; //using named parameters
             $namedParameters[':gType'] =   $_GET['genre'];
          }  
-         
-=======
+         if (!empty($_GET['console']) && $_GET['console']!= "Select One") {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
             $sql .= " AND console_name = :cType"; //using named parameters
             $namedParameters[':cType'] =   $_GET['console'];
-
-         }  
          
-
->>>>>>> origin/master
     }//endIf (isset)
     
     else{
@@ -186,6 +164,13 @@ function getGenre() {
                     <?=getConsole()?>
                 </select>
                 <input type="submit" name="search" value="Search"/>
+                
+                 Order by Price:
+            <input type="radio" name="orderBy" id="orderByName" value="name">
+            <label for="orderByName">Ascending  </label>
+            
+            <input type="radio" name="orderBy" id="orderByPrice" value="price">
+            <label for="orderByPrice">Descending </label>
         </form>
         <br>
         <?php $items = getItems(); ?>
