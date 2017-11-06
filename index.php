@@ -8,41 +8,54 @@
     function getItems() {
         global $conn;
         $sql = "SELECT * 
-                FROM vg_game";
+                FROM vg_game WHERE 1";
                 //ORDER BY game_name";
-                
-                  $statement = $conn->prepare($sql);
-        $statement->execute();
-        $games = $statement->fetchAll(PDO::FETCH_ASSOC);
-      
         
-         if (isset($_GET['search'])){
-             
-              $namedParameters = array();
-           /*  if (!empty($_GET['ge_name'])) {
-            
+    if (isset($_GET['search'])){
+        
+        $namedParameters = array();
+        
+        
+        if (!empty($_GET['gameName'])) {
+            //echo $_GET['deviceName'];
             //The following query allows SQL injection due to the single quotes
-            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+            $sql .= " AND game_name LIKE '%" . $_GET['gameName'] . "%'";
   
-            $sql .= " WHERE game_name LIKE  :game_name  "; //using named parameters
-            $namedParameters[':game_name'] = "%" . $_GET['game_name'] . "%";
-
-             }*/
-             
-              if (!empty($_GET['genre'])) {
-            
-            //The following query allows SQL injection due to the single quotes
-            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
-  
-            $sql .= " WHERE genre = :genre"; //using named parameters
-            $namedParameters[':genre'] =   $_GET['genre'] ;
-
-         }   
+           // $sql .= " AND deviceName LIKE :deviceName"; //using named parameters
+            //$namedParameters[':deviceName'] = "%" . $_GET['deviceName'] . "%";
          }
-        $sql .= "ORDER BY game_name";
+         if (!empty($_GET['genre']) && $_GET['genre']!= "Select One") {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
+            $sql .= " AND genre = :gType"; //using named parameters
+            $namedParameters[':gType'] =   $_GET['genre'];
+         }  
+         
+    }//endIf (isset)
+    
+    else{
+        $sql .= " ORDER BY game_name ASC";
+    }
+       
+        $stmt = $conn->prepare($sql);
+        $stmt->execute($namedParameters);
+        $games = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        
-        return $games;
+        showItems($games);
+    }
+    
+    function display($items){
+         foreach($items as $item) {
+            echo $item['game_id']." ".$item['game_name'] . " " . $item['console_name']."<br>Genre: ".$item['genre'] . "<br>Release: " . $item['game_release']."</a><br>";
+            
+            echo "<form action='addtocart.php' style='display:inline'>";
+            echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
+            echo '<button class="add" value="'.$item['game_name'].'"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp;Add to cart</button>';
+          
+            echo "<br />";
+        }
     }
     
    
@@ -52,7 +65,7 @@
             
             echo "<form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
-            echo '<button class="add" value="'.$item['game_name'].'">Add to cart</button>';
+            echo '<button class="add" value="'.$item['game_name'].'"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp;Add to cart</button>';
             echo "</form>";
             echo "<br />";
         }
@@ -77,8 +90,6 @@
         
     }
 }
-
-
 function getGenre() {
     global $conn;
     $sql = "SELECT DISTINCT(genre)
@@ -95,12 +106,10 @@ function getGenre() {
         
     }
 }
-
     if(!isset($_SESSION['ids']) || empty($_SESSION['ids'])){
         $_SESSION['ids']=array();
     }
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -119,12 +128,18 @@ function getGenre() {
        
         <hr>
         <h3>Game Stock</h3>
-        <?php $items = getItems(); ?>
         <form action="viewcart.php" style='display:inline' method="get">
-            <input type="submit" value="Display Shopping Cart">
+            
+            <button type="submit" value="Display Shopping Cart"  >
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp; Your Shopping cart
+                </button>
             
             
-                Game Name: <input type="text" name="game_name" placeholder="Game Name"/>
+               
+        </form>
+        
+        <form method="get">
+             Game Name: <input type="text" name="gameName" placeholder="Game Name"/>
              
                 Genre:<select name="genre">
                 <option value="">Select One</option>
@@ -138,14 +153,13 @@ function getGenre() {
                 <input type="submit" name="search" value="Search"/>
         </form>
         <br>
-        
-        <?php showItems($items); ?>
+        <?php $items = getItems(); ?>
+       
         </div>
         
         <script>
         
         function add(game) {
-
                  return "";
         }
                 $(document).ready(function(){
