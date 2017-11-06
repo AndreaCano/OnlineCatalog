@@ -8,7 +8,13 @@
     function getItems() {
         global $conn;
         $sql = "SELECT * 
+<<<<<<< HEAD
                 FROM vg_game WHERE 1";
+=======
+                FROM vg_game
+                NATURAL JOIN vg_console
+                WHERE 1";
+>>>>>>> origin/master
                 //ORDER BY game_name";
         
     if (isset($_GET['search'])){
@@ -18,21 +24,50 @@
         
         if (!empty($_GET['gameName'])) {
             //echo $_GET['deviceName'];
+<<<<<<< HEAD
+=======
             //The following query allows SQL injection due to the single quotes
             $sql .= " AND game_name LIKE '%" . $_GET['gameName'] . "%'";
   
            // $sql .= " AND deviceName LIKE :deviceName"; //using named parameters
             //$namedParameters[':deviceName'] = "%" . $_GET['deviceName'] . "%";
+
          }
          if (!empty($_GET['genre']) && $_GET['genre']!= "Select One") {
+            
+>>>>>>> origin/master
+            //The following query allows SQL injection due to the single quotes
+            $sql .= " AND game_name LIKE '%" . $_GET['gameName'] . "%'";
+  
+<<<<<<< HEAD
+           // $sql .= " AND deviceName LIKE :deviceName"; //using named parameters
+            //$namedParameters[':deviceName'] = "%" . $_GET['deviceName'] . "%";
+         }
+         if (!empty($_GET['genre']) && $_GET['genre']!= "Select One") {
+=======
+            $sql .= " AND genre = :gType"; //using named parameters
+            $namedParameters[':gType'] =   $_GET['genre'];
+
+         }  
+         if (!empty($_GET['console']) && $_GET['console']!= "Select One") {
+>>>>>>> origin/master
             
             //The following query allows SQL injection due to the single quotes
             //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
   
+<<<<<<< HEAD
             $sql .= " AND genre = :gType"; //using named parameters
             $namedParameters[':gType'] =   $_GET['genre'];
          }  
          
+=======
+            $sql .= " AND console_name = :cType"; //using named parameters
+            $namedParameters[':cType'] =   $_GET['console'];
+
+         }  
+         
+
+>>>>>>> origin/master
     }//endIf (isset)
     
     else{
@@ -61,7 +96,7 @@
    
     function showItems($items){
         foreach($items as $item) {
-            echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Genre: ".$item['genre'] . "<br>Release: " . $item['game_release']."</a><br>";
+            echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Console: ".$item['console_name'] . "<br>Price: $" . $item['price']."</a><br>";
             
             echo "<form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
