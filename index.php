@@ -8,7 +8,9 @@
     function getItems() {
         global $conn;
         $sql = "SELECT * 
-                FROM vg_game WHERE 1";
+                FROM vg_game
+                NATURAL JOIN vg_console
+                WHERE 1";
                 //ORDER BY game_name";
         
     if (isset($_GET['search'])){
@@ -32,6 +34,15 @@
   
             $sql .= " AND genre = :gType"; //using named parameters
             $namedParameters[':gType'] =   $_GET['genre'];
+
+         }  
+         if (!empty($_GET['console']) && $_GET['console']!= "Select One") {
+            
+            //The following query allows SQL injection due to the single quotes
+            //$sql .= " AND deviceName LIKE '%" . $_GET['deviceName'] . "%'";
+  
+            $sql .= " AND console_name = :cType"; //using named parameters
+            $namedParameters[':cType'] =   $_GET['console'];
 
          }  
          
@@ -64,7 +75,7 @@
    
     function showItems($items){
         foreach($items as $item) {
-            echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Genre: ".$item['genre'] . "<br>Release: " . $item['game_release']."</a><br>";
+            echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Console: ".$item['console_name'] . "<br>Price: $" . $item['price']."</a><br>";
             
             echo "<form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
