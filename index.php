@@ -56,7 +56,7 @@
          
     }//endIf (isset)
     
-    else if(!isset($_GET['search'])){
+    else {
         $sql .= " ORDER BY game_name ASC";
     }
        
