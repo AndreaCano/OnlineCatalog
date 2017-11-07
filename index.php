@@ -47,10 +47,10 @@
             $namedParameters[':cType'] =   $_GET['console'];
             
            
-         if(isset($_GET['orderBy']) && $_GET['orderBy'] == 'name')     {
+         if(isset($_GET['orderby']) && $_GET['orderby'] == 'name')     {
                   $sql .= " ORDER BY game_name DESC";
-        } else if(isset($_GET['orderBy']) && $_GET['orderBy'] == 'price'){
-                  $sql .= " ORDER BY price";
+        } else if(isset($_GET['orderby']) && $_GET['orderby'] == 'price'){
+                  $sql .= " ORDER BY price DESC";
         }
         
          
@@ -223,10 +223,10 @@ function getGenre() {
                 
                 
             Order by:
-            <input type="radio" name="orderbyPrice" id="price" value="price">
+            <input type="radio" name="orderby" id="price" value="price">
             <label for="orderByPrice"> Price</label>
             
-            <input type="radio" name="orderbyName" id="name" value="name">
+            <input type="radio" name="orderby" id="name" value="name">
             <label for="orderByName">Name </label>
             
             <input type="submit" name="search" value="Search"/>
