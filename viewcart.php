@@ -19,13 +19,19 @@
     
     
     function showItem($item){
-        echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Genre: ".$item['genre'] . "<br>Release: " . $item['game_release']."</a><br>";
+     echo"   
+    ";
+        
+        
+        echo "<td><a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . "</a> </td><td>" . $item['console_name']."</td><td>Genre: ".$item['genre'] . "</td><td>Release: " . $item['game_release']."</td><td>";
             
             echo "<form action='removefromcart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
-            echo "<input type='submit' value='Remove from Cart'>";
-            echo "</form>";
-            echo "<br />";
+            echo "<button  class='btn btn-danger' role='button'type='submit' value='Remove from Cart'>
+            Remove from Cart &nbsp<span class='glyphicon glyphicon-remove'></span></button>";
+            echo "</form></td>";
+            echo "</tr>";
+            
     }
     
     function getCart(){
@@ -47,7 +53,18 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </head>
     <body>
+        <div class= "jumbotron">
         <h1>Cart</h1>
+        </div>
+        <table class="table table-hover">
+            <thead>
+      <tr>
+        <th>Item</th>
+       <tbody>
+        </tr>
+        <tbody>
        <?php getCart(); ?>
+       </tbody>
+       </table>
     </body>
 </html>
