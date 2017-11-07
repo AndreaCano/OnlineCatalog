@@ -134,15 +134,45 @@ function getGenre() {
 <!DOCTYPE html>
 <html>
     <head>
+        
+    
         <title>Retro Video Games </title>
+       
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+         <style>
+            @import url('css/styles.css');
+        </style>
+    
     </head>
     <body>
+            <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+  
+  </div>
+</nav>
         <div class="jumbotron">
+            
+            <div class="row text-center">
+   
+    <div class="col-sm-3">
+      <img src="img/game.png" class="img-responsive img-rounded">
+    </div>
+    <div class="col-sm-3">
+      <img src="img/pacman.png" class="img-responsive img-rounded">
+    </div>
+    <div class="col-sm-3">
+      <img src="img/retro.png" class="img-responsive img-rounded">
+    </div>
+
+  </div>
+             
+                    
+               
+            
             <h1>Retro Video Game Catalog</h1>
-            <h2></h2>
+            <p>Search through our fine collection of retro games.</p>
         </div>
         
         
