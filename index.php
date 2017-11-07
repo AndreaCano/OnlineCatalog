@@ -82,13 +82,13 @@
    
     function showItems($items){
         foreach($items as $item) {
-            echo "<a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . " " . $item['console_name']."<br>Console: ".$item['console_name'] . "<br>Price: $" . $item['price']."</a><br>";
+            echo "<tr><td><a href='viewitem.php?itemId=".$item['game_id']."'>".$item['game_name'] . "</a></td>" . "<td>Console: ".$item['console_name'] . "</td><td>Price: $" . $item['price']."";
             
-            echo "<form action='addtocart.php' style='display:inline'>";
+            echo "</td><td><form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
-            echo '<button class="add" value="'.$item['game_name'].'"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp;Add to cart</button>';
+            echo '<button class="btn btn-info btn-sm" value="'.$item['game_name'].'"><span class="glyphicon glyphicon-ok-sign"></span>  &nbsp;&nbsp;&nbsp;Add to cart</button>';
             echo "</form>";
-            echo "<br />";
+            echo "</td></tr>";
         }
     }
     
@@ -232,7 +232,17 @@ function getGenre() {
             <input type="submit" name="search" value="Search"/>
         </form>
         <br>
+         <table class="table table-hover">
+            <thead>
+      <tr>
+        <th>Item</th>
+        <th>Console</th>
+        <th>Price</th>
+       <tbody>
+        </tr>
+        <tbody>
         <?php $items = getItems(); ?>
+        </tbody>
        
         </div>
         

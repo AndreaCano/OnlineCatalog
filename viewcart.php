@@ -8,7 +8,7 @@
     function getItem($itemId) {
         global $conn;
         $sql = "SELECT * 
-                FROM vg_game
+                FROM vg_game, vg_console
                 WHERE game_id = $itemId";
         $statement = $conn->prepare($sql);
         $statement->execute();
@@ -59,9 +59,12 @@
         <table class="table table-hover">
             <thead>
       <tr>
-        <th>Item</th>
-       <tbody>
+        <th>Name</th>
+        <th>Console</th>
+        <th>Genre</th>
+         <th>Release</th>
         </tr>
+        </thead>
         <tbody>
        <?php getCart(); ?>
        </tbody>
