@@ -47,7 +47,7 @@
             $namedParameters[':cType'] =   $_GET['console'];
             
            
-         if(isset($_GET['orderby']) && $_GET['orderby'] == 'name')     {
+         if(!empty($_GET['orderby']) && isset($_GET['orderby']) && $_GET['orderby'] == 'name')     {
                   $sql .= " ORDER BY game_name DESC";
         } else if(isset($_GET['orderby']) && $_GET['orderby'] == 'price'){
                   $sql .= " ORDER BY price DESC";
@@ -73,7 +73,7 @@
             
             echo "<form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
-            echo '<button class="add" value="'.$item['game_name'].'"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp;Add to cart</button>';
+            echo '<button value="'.$item['game_name'].'"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp;Add to cart</button>';
           
             echo "<br />";
         }
@@ -86,7 +86,7 @@
             
             echo "</td><td><form action='addtocart.php' style='display:inline'>";
             echo "<input type='hidden' name='itemId' value='".$item['game_id']."'>";
-            echo '<button class="btn btn-info btn-sm" value="'.$item['game_name'].'"><span class="glyphicon glyphicon-ok-sign"></span>  &nbsp;&nbsp;&nbsp;Add to cart</button>';
+            echo '<button  class="btn btn-info btn-sm" value="'.$item['game_name'].'"><span class="glyphicon glyphicon-ok-sign"></span>  &nbsp;&nbsp;&nbsp;Add to cart</button>';
             echo "</form>";
             echo "</td></tr>";
         }
@@ -167,24 +167,33 @@ function getGenre() {
   
                   <p class="navbar-text navbar-left"> <a href="#" class="navbar-link">Home</a></p>
                   <p class="navbar-text navbar-left"> <a href="#" class="navbar-link">About</a></p>
-                  <p class="navbar-text navbar-left"> <a href="#" class="navbar-link">Your Cart  &nbsp;&nbsp;&nbsp; <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></p>
-  
+                  <p class="navbar-text navbar-left"> <a href="viewcart.php" class="navbar-link">Your Cart  &nbsp;&nbsp;&nbsp; <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a></p>
+           <!--         <form action="viewcart.php" style='display:inline' method="get">
+           <p class="navbar-text navbar-left">
+            <button type="submit" value="Display Shopping Cart"  >
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp; Your Shopping cart
+                </button>
+            
+            <p class="navbar-text navbar-left">
+               
+        </form>-->
               </div>
             </nav>
         <div class="jumbotron">
-            
-            <div class="row text-center">
+            <div id="images">
+            <div class="row">
    
-    <div class="col-sm-3">
+    <div class="col-sm-3" style="margin-right: 20px;display:inline;">
       <img src="img/game.png" class="img-responsive img-rounded">
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-3" style="margin-right: 20px;display:inline";>
       <img src="img/pacman.png" class="img-responsive img-rounded">
     </div>
     <div class="col-sm-3">
       <img src="img/retro.png" class="img-responsive img-rounded">
     </div>
 
+  </div>
   </div>
              
                     
@@ -198,15 +207,7 @@ function getGenre() {
        
         <hr>
         <h3>Game Stock</h3>
-        <form action="viewcart.php" style='display:inline' method="get">
-            
-            <button type="submit" value="Display Shopping Cart"  >
-                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> &nbsp;&nbsp;&nbsp; Your Shopping cart
-                </button>
-            
-            
-               
-        </form>
+      
         
         <form method="get">
              Game Name: <input type="text" name="gameName" placeholder="Game Name"/>
@@ -248,11 +249,9 @@ function getGenre() {
         
         <script>
         
-        function add(game) {
-                 return "";
-        }
+       
                 $(document).ready(function(){
-                    $(".add").click(function(){
+                    $(".btn-info").click(function(){
                         alert("Added " + $(this).attr('value') + " item to your cart.");
                     });
                 });
