@@ -6,24 +6,35 @@
 .jumbotron{
     margin-top: 0;
     height: 40%;
-    padding-top: 180px;
+    padding-top: 350px;
     color:#839496;
     text-align: center;
     background-color:#073642;
 }
 
-.row.text-center > div {
-        display: inline-block;
-        float: none;
-    }
-    
+
     
 .img-responsive{
     border-radius: 30px;
-    max-width: 50%;
+    max-width: 70%;
+    max-height: 70%;
+     display:block;
+     
+     
 }
 
 .navbar-brand {
     height:50px;
     width:50px;
+}
+
+#images{
+position: absolute;
+  padding-top: 95px;
+ 
+  z-index: 15;
+  top: 20%;
+  left: 33%;
+  margin: -100px 0 0 -150px;
+  
 }

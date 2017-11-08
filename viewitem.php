@@ -30,15 +30,41 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+       <style>
+        @import url('css/styles.css');
+        </style>
     </head>
     <body>
-       <h1><?=$userInfo['game_name']?> Details </h1>
-       
-       Game Name: <?=$userInfo['game_name']?> <br>
-       Console: <?=$userInfo['console_name']?><br>
-       Developer: <?=$userInfo['developer_name']?><br>
-       Release Year: <?=$userInfo['game_release']?><br>
-       Genre: <?=$userInfo['genre']?><br>
-       Price: $<?=$userInfo['price']?><br>
+    <div id="item" class='jumbotron'>
+       <h1 style="margin-top:-200px;"><?=$userInfo['game_name']?> Details </h1>
+       </div>
+       <table class="table table-hover">
+            <thead>
+      <tr>
+        <th>Item</th>
+        <th>Console</th>
+        <th>Developer</th>
+        <th>Release Year</th>
+        <th>Genre</th>
+        <th>Price</th>
+        </tr>
+        </thead>
+        
+        <tbody>
+       <tr>
+        <td>Game Name: <?=$userInfo['game_name']?> </td>
+       <td>Console: <?=$userInfo['console_name']?></td>
+       <td>Developer: <?=$userInfo['developer_name']?></td>
+       <td>Release Year: <?=$userInfo['game_release']?></td>
+       <td>Genre: <?=$userInfo['genre']?></td>
+       <td>Price: $<?=$userInfo['price']?></td>
+       </tr>
+       </tbody>
+       </table>
+       <form action="index.php">
+            <div id="admin">
+            <button class= "btn" type="submit" value="back"><span class="glyphicon glyphicon-arrow-left"></span> back</button>
+             <div>
+         </form>
     </body>
 </html>
