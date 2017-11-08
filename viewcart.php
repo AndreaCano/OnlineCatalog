@@ -58,7 +58,7 @@
     </head>
     <body>
         <div class= "jumbotron">
-        <h1>Cart</h1>
+        <h1 style="margin-top:-200px;"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;&nbsp;Your Cart</h1>
         </div>
         <table class="table table-hover">
             <thead>

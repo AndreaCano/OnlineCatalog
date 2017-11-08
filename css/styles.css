@@ -12,7 +12,9 @@
     background-color:#073642;
 }
 
-
+#selectpicker{
+    color:white; 
+}
     
 .img-responsive{
     border-radius: 30px;

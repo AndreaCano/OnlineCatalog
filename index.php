@@ -133,6 +133,10 @@ function getGenre() {
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
          <style>
             @import url('css/styles.css');
         </style>
@@ -203,35 +207,41 @@ function getGenre() {
         
         <form method="get">
              Game Name: <input type="text" name="gameName" placeholder="Game Name"/>
-             
-                Genre:<select name="genre">
+                 <div class="btn-group">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Genre:  <select style="color:white;"name="genre" class="selectpicker" >
                 <option value="">Select One</option>
                     <?=getGenre()?>
                 </select>
-                
-                Console:<select name="console">
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                Console:  <select style="color:white;"class="selectpicker"  name="console">
                 <option value="">Select One</option>
                     <?=getConsole()?>
                 </select>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 
-                
-            Order by:
+            Order by:&nbsp;
+            <div class="radio-inline">
             <input type="radio" name="orderBy" id="orderByName" value="game_name"/> 
-             <label for="orderByName"> Name </label>
+             <label for="orderByName"> Name </label></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="radio-inline">
             <input type="radio" name="orderBy" id="orderByPrice" value="price"/> 
-             <label for="orderByPrice"> Price </label>
+             <label for="orderByPrice"> Price </label></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             
-            <input type="submit" name="search" value="Search"/>
+            <button class="btn" type="submit" name="search" value="Search">Search&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-search"></span></button>
         </form>
         <br>
+        
          <table class="table table-hover">
             <thead>
       <tr>
         <th>Item</th>
         <th>Console</th>
         <th>Price</th>
-       <tbody>
+    
+       
         </tr>
+        </thead>
         <tbody>
         <?php $items = getItems(); ?>
         </tbody>
@@ -243,6 +253,9 @@ function getGenre() {
        
                 $(document).ready(function(){
                     $(".btn-info").click(function(){
+                      // $(".alert").removeClass("in").show();
+                       //$(".msg").html("<div class='alert alert-success alert-dismissable'><a href='#' class='close' data-dismiss='alert' aria-label='close'>×</a><strong>Added</strong> " + $(this).attr('value') + " item to your cart.</div>")
+	                   //$(".alert").delay("slow").addClass("in").fadeOut();
                         alert("Added " + $(this).attr('value') + " item to your cart.");
                     });
                 });
