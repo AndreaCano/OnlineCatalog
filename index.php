@@ -29,7 +29,6 @@
 
            // $sql .= " AND deviceName LIKE :deviceName"; //using named parameters
             //$namedParameters[':deviceName'] = "%" . $_GET['deviceName'] . "%";
-         }
         if (!empty($_GET['genre']) && $_GET['genre']!= "Select One") {
             
             //The following query allows SQL injection due to the single quotes
@@ -47,18 +46,12 @@
             $namedParameters[':cType'] =   $_GET['console'];
             
            
-         if(isset($_GET['orderby']) && $_GET['orderby'] == 'name')     {
-                  $sql .= " ORDER BY game_name DESC";
-        } else if(isset($_GET['orderby']) && $_GET['orderby'] == 'price'){
-                  $sql .= " ORDER BY price DESC";
-        }
+         }
+        if(isset($_GET['orderBy'])){
+            $sql .= " ORDER BY ".$_GET['orderBy']." ASC";
+        } 
         
-         
     }//endIf (isset)
-    
-    else {
-        $sql .= " ORDER BY game_name ASC";
-    }
        
         $stmt = $conn->prepare($sql);
         $stmt->execute($namedParameters);
@@ -223,11 +216,10 @@ function getGenre() {
                 
                 
             Order by:
-            <input type="radio" name="orderby" id="price" value="price">
-            <label for="orderByPrice"> Price</label>
-            
-            <input type="radio" name="orderby" id="name" value="name">
-            <label for="orderByName">Name </label>
+            <input type="radio" name="orderBy" id="orderByName" value="game_name"/> 
+             <label for="orderByName"> Name </label>
+            <input type="radio" name="orderBy" id="orderByPrice" value="price"/> 
+             <label for="orderByPrice"> Price </label>
             
             <input type="submit" name="search" value="Search"/>
         </form>
