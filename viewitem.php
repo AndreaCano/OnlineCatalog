@@ -60,6 +60,7 @@
        <td>Price: $<?=$userInfo['price']?></td>
        </tr>
        </tbody>
+       </table>
        <form action="index.php">
             <div id="admin">
             <button class= "btn" type="submit" value="back"><span class="glyphicon glyphicon-arrow-left"></span> back</button>
